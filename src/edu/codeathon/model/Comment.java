@@ -1,12 +1,14 @@
 package edu.codeathon.model;
 
-private class Comment{
+import java.lang.String;
+
+public class Comment {
 
   String author;
   Long timestamp;
   String content;
 
-  public Comment(Long timestamp, String author, String content){
+  public Comment(Long timestamp, String author, String content) {
     this.author = author;
     this.timestamp = timestamp;
     this.content = content;
@@ -14,16 +16,10 @@ private class Comment{
 
 
   @Override
-  public toString(){
-    return null;
+  public String toString() {
+    return timestamp + ":" + author + ":" + content;
   }
-
-
-  public static void main(String[] args) {
-    String toProcess = "191238914721,dtrump,hey yall nkorea gota bomb";
-    String[] processed = toProcess.split(",");
-    Comment comment = new Comment(Long.valueOf(toProcess[0]),toProcess[1],toProcess[2]);
-
-  }
+  
+}
 
 
