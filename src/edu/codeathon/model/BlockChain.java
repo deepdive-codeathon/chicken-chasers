@@ -16,6 +16,10 @@ public class BlockChain {
     return chain;
   }
 
+  public void add(Block block){
+    chain.add(block);
+  }
+
 
   public synchronized Block getMostRecentBlock(){
     return chain.get(chain.size()-1);

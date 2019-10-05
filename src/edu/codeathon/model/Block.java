@@ -6,26 +6,28 @@ import java.util.Date;
 
 public class Block {
 
-  public String hash; // hash of current block
-  public String lastHash; // hash of previous block
-  public String message; // (author, tweet, timestamp)
+  String hash; // hash of current block
+  String prevHash; // hash of previous block
+  String message; // (author, tweet, timestamp)
   private long blockTimestamp; // timestamp of block upon creation
 
   public String calculatedHash() {
-    return Utils.hash(
-        lastHash + Long.toString(blockTimestamp) + message
-    );
+    return Utils.hash( prevHash + blockTimestamp + message);
   }
 
-  public Block(String message, String lastHash){
+  public Block(String prevHash, String message){
     this.message = message;
-    this.lastHash = lastHash;
+    this.prevHash = prevHash;
     this.blockTimestamp = new Date().getTime();
     this.hash = calculatedHash();
   }
 
   @Override
   public String toString() {
-    return hash + Long.toString(blockTimestamp) + message;
+    return hash;
   }
+
+
+
+
 }
