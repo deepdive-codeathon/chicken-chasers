@@ -22,7 +22,6 @@ whether or not they stayed true to their word.
 * As a written agreement between any two parties looking to do business.
 
 
-#### Entity Relationship Diagram
 [Entity Relationship Diagram](docs/erd.md)
 
 
