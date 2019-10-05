@@ -19,6 +19,7 @@ public class Main {
     t.start();
     t.join();
     System.out.println(gson.toJson(blockChain));
+    System.out.println(blockChain.isValid());
   }
 
 }
