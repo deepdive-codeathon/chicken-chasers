@@ -1,12 +1,13 @@
 package edu.codeathon.model;
 
+import edu.codeathon.utilities.Utils;
 import java.util.Date;
 
 public class Block {
 
-  public String hash;
-  public String lastHash;
-  public String message;
+  private String hash;
+  private String lastHash;
+  private String message;
   private long blockTimestamp;
 
   public Block(String message, String lastHash){

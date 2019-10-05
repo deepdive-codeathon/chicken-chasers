@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Utils {
@@ -27,22 +28,22 @@ public class Utils {
     final int TEXT = 1; // Known value for tweet
     final int TIME = 2; // Known value for time stamp
 
+    String line;
     try {
       reader = new BufferedReader(new FileReader(fileName));
-      String line = reader.readLine();
-      while(line != null) {
+      reader.readLine();
+      while((line=reader.readLine()) != null) {
         List<String> temp = new ArrayList<>();
         String[] split = line.split(",");
+        System.out.println(Arrays.toString(split));
         temp.add(split[TEXT]);
         temp.add(split[TIME]);
         temp.add(USER);
-        System.out.println(temp);
         parsed.add(temp);
-        line = reader.readLine();
       }
       reader.close();
     }catch (IOException e) {
-      //Ignored
+      return null;
     }
     return parsed;
   }
