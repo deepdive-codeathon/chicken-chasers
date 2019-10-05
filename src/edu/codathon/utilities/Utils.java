@@ -18,9 +18,15 @@ public class Utils {
   public Utils() throws NoSuchAlgorithmException {
   }
 
-  public static String hash(String string) {
+  public static String hash(String... tohash) {
 
-    byte[] byteString = digest.digest(string.getBytes(StandardCharsets.UTF_8));
+    digest.reset();
+
+    for (String string : tohash) {
+      digest.update(string.getBytes(StandardCharsets.UTF_8));
+    }
+
+    byte[] byteString = digest.digest();
 
     StringBuffer hexString = new StringBuffer();
     for (int i = 0; i < byteString.length; i++) {
