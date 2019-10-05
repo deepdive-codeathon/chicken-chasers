@@ -1,4 +1,4 @@
-package edu.codeathon;
+package edu.codeathon.model;
 
 private class Comment{
 
