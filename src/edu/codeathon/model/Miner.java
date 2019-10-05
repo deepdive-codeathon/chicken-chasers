@@ -2,7 +2,9 @@ package edu.codeathon.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sun.webkit.network.Util;
 import edu.codeathon.utilities.Utils;
+import java.util.List;
 import java.util.Random;
 
 public class Miner implements Runnable {
@@ -22,10 +24,12 @@ public class Miner implements Runnable {
 
     running = true;
     Long nonce = new Random().nextLong()*10000000;
+    List<List<String>> tweets = Utils.parseComment("C:\\Users\\Quentin D\\Desktop\\bootcamp\\projects\\chicken-chasers\\resources\\comments");
+    int i = 0;
 
     Long blockTimestamp;
     while (running) {
-      String message = "HELLO WORLD";
+      String message = "Author: " + tweets.get(i).get(2) + " Text: " + tweets.get(i).get(0) + " Timestamp: " + tweets.get(i).get(1);
       String prevHash = currentChain.getMostRecentBlock().toString();
       Long blockNumber = currentChain.getCurrentNumber();
       blockTimestamp = System.currentTimeMillis();
@@ -39,6 +43,7 @@ public class Miner implements Runnable {
         System.out.println("Next Block:");
         System.out.println(gson.toJson(block));
         nonce = new Random().nextLong()*100000;
+        i++;
 
       }
       nonce++;

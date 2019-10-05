@@ -6,16 +6,11 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class Utils {
 
@@ -61,7 +56,7 @@ public class Utils {
     return parsed;
   }
 
-  public static Long convertToUnix(String text) {
+  private static Long convertToUnix(String text) {
     Long unixTime;
     try {
       SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
