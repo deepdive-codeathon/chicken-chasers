@@ -4,9 +4,9 @@ import java.lang.String;
 
 public class Comment {
 
-  String author;
-  String timestamp;
-  String content;
+  private String author;
+  private String timestamp;
+  private String content;
 
   public Comment(String timestamp, String author, String content) {
     this.author = author;
