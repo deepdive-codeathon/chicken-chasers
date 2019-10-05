@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,20 +43,35 @@ public class Utils {
       while((line=reader.readLine()) != null) {
         List<String> temp = new ArrayList<>();
         String[] split = line.split(",");
-        System.out.println(Arrays.toString(split));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss");
-        Date date = dateFormat.parse(split[TIME]);
-        Long unixTime = (long) date.getTime()/1000;
-        temp.add(split[TEXT]);
-        temp.add(unixTime.toString());
-        temp.add(USER);
-        parsed.add(temp);
+        try {
+          if (convertToUnix(split[TIME]) != null) {
+            temp.add(split[TEXT]);
+            temp.add(convertToUnix(split[TIME]).toString());
+            temp.add(USER);
+            parsed.add(temp);
+          }
+        }catch(ArrayIndexOutOfBoundsException aiob) {
+          //Ignored
+        }
       }
       reader.close();
-    }catch (IOException | ParseException e) {
-      return null;
+    }catch (IOException e) {
+      //Ignored
     }
     return parsed;
+  }
+
+  public static Long convertToUnix(String text) {
+    Long unixTime;
+    try {
+      SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+      Date dt = sdf.parse(text);
+      long epoch = dt.getTime();
+      unixTime = (epoch/1000);
+    } catch (ParseException e) {
+      return null;
+    }
+    return unixTime;
   }
 
 
