@@ -54,21 +54,29 @@ public class Utils {
 
   public static String hash(Object... tohash) {
 
+    // reset the hash digest between multiple hashes
     digest.reset();
+    // add the tostrings of the input object to the digest
     for (Object obj : tohash) {
       digest.update(obj.toString().getBytes(StandardCharsets.UTF_8));
     }
-
+    // get the sha256 hash value of the input and store as byte array
     byte[] byteString = digest.digest();
 
+
+    // output to convert the byte values into hex equivalents
     StringBuilder hexString = new StringBuilder();
+    // loop over the values in the byte array
     for (int i = 0; i < byteString.length; i++) {
+      // AND the byte value to produce the hex equiv
       String hex = Integer.toHexString(0xff & byteString[i]);
       if (hex.length() == 1) {
         hexString.append('0');
       }
+      // add the hexvalue to the returned string
       hexString.append(hex);
     }
+    // return the hexvalue as a string
     return hexString.toString();
   }
 
