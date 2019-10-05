@@ -27,13 +27,14 @@ public class Miner implements Runnable {
     while (running) {
       String message = "HELLO WORLD";
       String prevHash = currentChain.getMostRecentBlock().toString();
+      Long blockNumber = currentChain.getCurrentNumber();
       blockTimestamp = System.currentTimeMillis();
-      String nextBlock = Utils.hash(prevHash,blockTimestamp,message,nonce);
+      String nextBlock = Utils.hash(prevHash, blockNumber+1, blockTimestamp,message,nonce);
 
       if (nextBlock.startsWith(difficulty)) {
 
 
-        Block block = new Block(prevHash, message, blockTimestamp, nonce);
+        Block block = new Block(prevHash, blockNumber+1, message, blockTimestamp, nonce);
         currentChain.add(block);
         System.out.println("Next Block:");
         System.out.println(gson.toJson(block));

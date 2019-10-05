@@ -29,7 +29,9 @@ public class MainView extends Application {
     listView.setEditable(true);
 
     content.addAll(
-        "Hash: 0008c087247aa2f07ee1c5956b8e1a9f4c7f892a70e324f1bb3d161e05ca107b", "John McAfee", " ", "       I will eat my d if Bitcoin isn't $1,000,000 by 2020."," ", "                                                                                29 November 2017"
+        "Hash: 0008c087247aa2f07ee1c5956b8e1a9f4c7f892a70e324f1bb3d161e05ca107b", "John McAfee",
+        " ", "       I will eat my d if Bitcoin isn't $1,000,000 by 2020.", " ",
+        "                                                                                29 November 2017"
     );
 
     for (int i = 0; i < 18; i++) {

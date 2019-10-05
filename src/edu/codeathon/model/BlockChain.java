@@ -24,4 +24,8 @@ public class BlockChain {
   public synchronized Block getMostRecentBlock(){
     return chain.get(chain.size()-1);
   }
+
+  public Long getCurrentNumber() {
+    return chain.get(chain.size()-1).blockNumber;
+  }
 }
