@@ -52,11 +52,11 @@ public class Utils {
   public Utils() throws NoSuchAlgorithmException {
   }
 
-  public static String hash(String... tohash) {
+  public static String hash(Object... tohash) {
 
     digest.reset();
-    for (String string : tohash) {
-      digest.update(string.getBytes(StandardCharsets.UTF_8));
+    for (Object obj : tohash) {
+      digest.update(obj.toString().getBytes(StandardCharsets.UTF_8));
     }
 
     byte[] byteString = digest.digest();
