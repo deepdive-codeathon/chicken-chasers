@@ -61,12 +61,12 @@ public class Utils {
   public Utils() throws NoSuchAlgorithmException {
   }
 
-  public static String hash(Object... tohash) {
+  public static String hash(Object... toHash) {
 
     // reset the hash digest between multiple hashes
     digest.reset();
     // add the tostrings of the input object to the digest
-    for (Object obj : tohash) {
+    for (Object obj : toHash) {
       digest.update(obj.toString().getBytes(StandardCharsets.UTF_8));
     }
     // get the sha256 hash value of the input and store as byte array
