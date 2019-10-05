@@ -6,8 +6,14 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Utils {
 
@@ -20,6 +26,7 @@ public class Utils {
     }
   }
 
+
   public static List<List<String>> parseComment(String fileName) {
     List<List<String>> parsed = new ArrayList<>();
     BufferedReader reader;
@@ -27,22 +34,25 @@ public class Utils {
     final int TEXT = 1; // Known value for tweet
     final int TIME = 2; // Known value for time stamp
 
+    String line;
     try {
       reader = new BufferedReader(new FileReader(fileName));
-      String line = reader.readLine();
-      while(line != null) {
+      reader.readLine();
+      while((line=reader.readLine()) != null) {
         List<String> temp = new ArrayList<>();
         String[] split = line.split(",");
+        System.out.println(Arrays.toString(split));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss");
+        Date date = dateFormat.parse(split[TIME]);
+        Long unixTime = (long) date.getTime()/1000;
         temp.add(split[TEXT]);
-        temp.add(split[TIME]);
+        temp.add(unixTime.toString());
         temp.add(USER);
-        System.out.println(temp);
         parsed.add(temp);
-        line = reader.readLine();
       }
       reader.close();
-    }catch (IOException e) {
-      //Ignored
+    }catch (IOException | ParseException e) {
+      return null;
     }
     return parsed;
   }
@@ -51,23 +61,31 @@ public class Utils {
   public Utils() throws NoSuchAlgorithmException {
   }
 
-  public static String hash(String... tohash) {
+  public static String hash(Object... tohash) {
 
+    // reset the hash digest between multiple hashes
     digest.reset();
-    for (String string : tohash) {
-      digest.update(string.getBytes(StandardCharsets.UTF_8));
+    // add the tostrings of the input object to the digest
+    for (Object obj : tohash) {
+      digest.update(obj.toString().getBytes(StandardCharsets.UTF_8));
     }
-
+    // get the sha256 hash value of the input and store as byte array
     byte[] byteString = digest.digest();
 
+
+    // output to convert the byte values into hex equivalents
     StringBuilder hexString = new StringBuilder();
+    // loop over the values in the byte array
     for (int i = 0; i < byteString.length; i++) {
+      // AND the byte value to produce the hex equiv
       String hex = Integer.toHexString(0xff & byteString[i]);
       if (hex.length() == 1) {
         hexString.append('0');
       }
+      // add the hexvalue to the returned string
       hexString.append(hex);
     }
+    // return the hexvalue as a string
     return hexString.toString();
   }
 

@@ -4,11 +4,11 @@ import java.lang.String;
 
 public class Comment {
 
-  String author;
-  Long timestamp;
-  String content;
+  private String author;
+  private String timestamp;
+  private String content;
 
-  public Comment(Long timestamp, String author, String content) {
+  public Comment(String timestamp, String author, String content) {
     this.author = author;
     this.timestamp = timestamp;
     this.content = content;

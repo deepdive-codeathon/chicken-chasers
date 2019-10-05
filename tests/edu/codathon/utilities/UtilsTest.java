@@ -9,6 +9,6 @@ class UtilsTest {
 
   @Test
   void parseComment() {
-    Utils.parseComment("comments");
+    System.out.println(Utils.parseComment("resources/comments"));
   }
 }
