@@ -1,0 +1,29 @@
+package edu.codeathon;
+
+private class Comment{
+
+  String author;
+  Long timestamp;
+  String content;
+
+  public Comment(Long timestamp, String author, String content){
+    this.author = author;
+    this.timestamp = timestamp;
+    this.content = content;
+  }
+
+
+  @Override
+  public toString(){
+    return null;
+  }
+
+
+  public static void main(String[] args) {
+    String toProcess = "191238914721,dtrump,hey yall nkorea gota bomb";
+    String[] processed = toProcess.split(",");
+    Comment comment = new Comment(Long.valueOf(toProcess[0]),toProcess[1],toProcess[2]);
+
+  }
+
+
