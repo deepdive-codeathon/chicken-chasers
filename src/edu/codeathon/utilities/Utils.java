@@ -24,7 +24,7 @@ public class Utils {
     List<List<String>> parsed = new ArrayList<>();
     BufferedReader reader;
     final String USER = "@therealDonaldTrump";
-    final int TEXT = 1; // Known value for the tweet
+    final int TEXT = 1; // Known value for tweet
     final int TIME = 2; // Known value for time stamp
 
     try {
@@ -36,6 +36,7 @@ public class Utils {
         temp.add(split[TEXT]);
         temp.add(split[TIME]);
         temp.add(USER);
+        System.out.println(temp);
         parsed.add(temp);
         line = reader.readLine();
       }
