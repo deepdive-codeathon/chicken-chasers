@@ -3,6 +3,7 @@ package edu.codeathon.model;
 import edu.codeathon.utilities.Utils;
 import java.util.Date;
 
+
 public class Block {
 
   public String hash; // hash of current block
@@ -25,4 +26,3 @@ public class Block {
 
 
 }
-
