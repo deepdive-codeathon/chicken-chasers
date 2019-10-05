@@ -1,4 +1,4 @@
-package edu.codathon.utilities;
+package edu.codeathon.utilities;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -24,7 +24,7 @@ public class Utils {
     List<List<String>> parsed = new ArrayList<>();
     BufferedReader reader;
     final String USER = "@therealDonaldTrump";
-    final int TEXT = 1; // Known value for the tweet
+    final int TEXT = 1; // Known value for tweet
     final int TIME = 2; // Known value for time stamp
 
     try {
@@ -36,6 +36,7 @@ public class Utils {
         temp.add(split[TEXT]);
         temp.add(split[TIME]);
         temp.add(USER);
+        System.out.println(temp);
         parsed.add(temp);
         line = reader.readLine();
       }
@@ -53,14 +54,13 @@ public class Utils {
   public static String hash(String... tohash) {
 
     digest.reset();
-
     for (String string : tohash) {
       digest.update(string.getBytes(StandardCharsets.UTF_8));
     }
 
     byte[] byteString = digest.digest();
 
-    StringBuffer hexString = new StringBuffer();
+    StringBuilder hexString = new StringBuilder();
     for (int i = 0; i < byteString.length; i++) {
       String hex = Integer.toHexString(0xff & byteString[i]);
       if (hex.length() == 1) {
