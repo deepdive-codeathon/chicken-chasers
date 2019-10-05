@@ -1,0 +1,8 @@
+{
+  "blockNumber": 61,
+  "hash": "0000fb8f7886c776bcd45d0ec943083ccea6fc0d23cbeb8cd1d1afad54eac38a",
+  "prevHash": "000051cc5afba6204d75e0b922734bd02d5fc4cab84b2d241fc94e12e317bb49",
+  "message": "HELLO WORLD",
+  "blockTimestamp": 1570309477095,
+  "nonce": -1345253295930085968
+}
