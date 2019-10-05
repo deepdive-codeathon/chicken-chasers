@@ -1,4 +1,4 @@
-package edu.codathon.utilities;
+package edu.codeathon.utilities;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -53,14 +53,13 @@ public class Utils {
   public static String hash(String... tohash) {
 
     digest.reset();
-
     for (String string : tohash) {
       digest.update(string.getBytes(StandardCharsets.UTF_8));
     }
 
     byte[] byteString = digest.digest();
 
-    StringBuffer hexString = new StringBuffer();
+    StringBuilder hexString = new StringBuilder();
     for (int i = 0; i < byteString.length; i++) {
       String hex = Integer.toHexString(0xff & byteString[i]);
       if (hex.length() == 1) {
