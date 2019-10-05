@@ -1,6 +1,6 @@
 package edu.codeathon.twitterreader;
 
-import twitter4j.Twitter;
+//import twitter4j.Twitter;
 
 public class Read {
 
