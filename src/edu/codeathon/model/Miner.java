@@ -47,7 +47,7 @@ public class Miner implements Runnable {
 
         PrintWriter writer = null;
         try {
-          writer = new PrintWriter("blocks/Block" + block.blockNumber+".dat" , "UTF-8");
+          writer = new PrintWriter("blocks/block" + block.blockNumber+".dat" , "UTF-8");
         } catch (FileNotFoundException e) {
           e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
