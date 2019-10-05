@@ -27,10 +27,11 @@ public class Miner implements Runnable {
     Long nonce = new Random().nextLong()*10000000;
     Long blockTimestamp;
 
-    List<List<String>> tweets = Utils.parseComment("C:\\Users\\Mr_15\\Desktop\\bootcamp\\projects\\chicken-chasers\\resources\\comments");
+    List<List<String>> tweets = Utils.parseComment("resources\\comments");
     int i = 0;
     while (running) {
-      String message = "Author: " + tweets.get(i).get(2) + " Text: " + tweets.get(i).get(0) + " Timestamp: " + tweets.get(i).get(1);
+      Comment comment = new Comment(tweets.get(i).get(1), tweets.get(i).get(2), tweets.get(i).get(0));
+      String message = comment.toString();
       String prevHash = currentChain.getMostRecentBlock().toString();
       Long blockNumber = currentChain.getCurrentNumber();
       blockTimestamp = System.currentTimeMillis();
