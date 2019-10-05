@@ -19,7 +19,7 @@ public class Comment {
   public String toString() {
     return timestamp + ":" + author + ":" + content;
   }
-  
+
 }
 
 
