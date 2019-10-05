@@ -11,6 +11,15 @@ import java.util.List;
 
 public class Utils {
 
+  private static MessageDigest digest;
+
+  static {
+    try {
+      digest = MessageDigest.getInstance("SHA-256");
+    } catch (NoSuchAlgorithmException ignored) {
+    }
+  }
+
   public static List<List<String>> parseComment(String fileName) {
     List<List<String>> parsed = new ArrayList<>();
     BufferedReader reader;
@@ -37,16 +46,6 @@ public class Utils {
     return parsed;
   }
 
-
-
-  private static MessageDigest digest;
-
-  static {
-    try {
-      digest = MessageDigest.getInstance("SHA-256");
-    } catch (NoSuchAlgorithmException ignored) {
-    }
-  }
 
   public Utils() throws NoSuchAlgorithmException {
   }
