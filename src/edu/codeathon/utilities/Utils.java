@@ -6,9 +6,14 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Utils {
 
@@ -20,6 +25,7 @@ public class Utils {
     } catch (NoSuchAlgorithmException ignored) {
     }
   }
+
 
   public static List<List<String>> parseComment(String fileName) {
     List<List<String>> parsed = new ArrayList<>();
@@ -36,13 +42,16 @@ public class Utils {
         List<String> temp = new ArrayList<>();
         String[] split = line.split(",");
         System.out.println(Arrays.toString(split));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss");
+        Date date = dateFormat.parse(split[TIME]);
+        Long unixTime = (long) date.getTime()/1000;
         temp.add(split[TEXT]);
-        temp.add(split[TIME]);
+        temp.add(unixTime.toString());
         temp.add(USER);
         parsed.add(temp);
       }
       reader.close();
-    }catch (IOException e) {
+    }catch (IOException | ParseException e) {
       return null;
     }
     return parsed;
