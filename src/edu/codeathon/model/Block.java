@@ -24,5 +24,8 @@ public class Block {
     this.hash = calculatedHash();
   }
 
-
+  @Override
+  public String toString() {
+    return hash + Long.toString(blockTimestamp) + message;
+  }
 }
