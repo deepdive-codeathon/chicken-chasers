@@ -37,56 +37,6 @@ public class Utils {
     }
   }
 
-
-  public static List<List<String>> parseComment(String fileName) {
-    List<List<String>> parsed = new ArrayList<>();
-    BufferedReader reader;
-    final String USER = "@therealDonaldTrump";
-    final int TEXT = 1; // Known value for tweet
-    final int TIME = 2; // Known value for time stamp
-
-    String line;
-    try {
-      reader = new BufferedReader(new FileReader(fileName));
-      reader.readLine();
-      while((line=reader.readLine()) != null) {
-        List<String> temp = new ArrayList<>();
-        String[] split = line.split(",");
-        try {
-          if (convertToUnix(split[TIME]) != null) {
-            temp.add(split[TEXT]);
-            temp.add(convertToUnix(split[TIME]).toString());
-            temp.add(USER);
-            parsed.add(temp);
-          }
-        }catch(ArrayIndexOutOfBoundsException aiob) {
-          //Ignored
-        }
-      }
-      reader.close();
-    }catch (IOException e) {
-      //Ignored
-    }
-    return parsed;
-  }
-
-  private static Long convertToUnix(String text) {
-    Long unixTime;
-    try {
-      SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-      Date dt = sdf.parse(text);
-      long epoch = dt.getTime();
-      unixTime = (epoch/1000);
-    } catch (ParseException e) {
-      return null;
-    }
-    return unixTime;
-  }
-
-
-  public Utils() throws NoSuchAlgorithmException {
-  }
-
   public static String hash(Object... toHash) {
 
     // reset the hash digest between multiple hashes
@@ -101,7 +51,52 @@ public class Utils {
     return byteToString(byteString);
   }
 
-    public static String byteToString(byte[] byteString){
+  public static List<List<String>> parseComment(String fileName) {
+    List<List<String>> parsed = new ArrayList<>();
+    BufferedReader reader;
+    final String USER = "@therealDonaldTrump";
+    final int TEXT = 1; // Known value for tweet
+    final int TIME = 2; // Known value for time stamp
+
+    String line;
+    try {
+      reader = new BufferedReader(new FileReader(fileName));
+      reader.readLine();
+      while ((line = reader.readLine()) != null) {
+        List<String> temp = new ArrayList<>();
+        String[] split = line.split(",");
+        try {
+          if (convertToUnix(split[TIME]) != null) {
+            temp.add(split[TEXT]);
+            temp.add(convertToUnix(split[TIME]).toString());
+            temp.add(USER);
+            parsed.add(temp);
+          }
+        } catch (ArrayIndexOutOfBoundsException aiob) {
+          //Ignored
+        }
+      }
+      reader.close();
+    } catch (IOException e) {
+      //Ignored
+    }
+    return parsed;
+  }
+
+  private static Long convertToUnix(String text) {
+    Long unixTime;
+    try {
+      SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+      Date dt = sdf.parse(text);
+      long epoch = dt.getTime();
+      unixTime = (epoch / 1000);
+    } catch (ParseException e) {
+      return null;
+    }
+    return unixTime;
+  }
+
+  public static String byteToString(byte[] byteString) {
 
     // output to convert the byte values into hex equivalents
     StringBuilder hexString = new StringBuilder();
@@ -119,14 +114,17 @@ public class Utils {
     return hexString.toString();
   }
 
-
-  public void saveBlock(Block block){
-    try( PrintWriter writer = new PrintWriter("blocks/block" + block.blockNumber+".dat" , "UTF-8")){
+  public void saveBlock(Block block) {
+    try (PrintWriter writer = new PrintWriter("blocks/block" + block.blockNumber + ".dat",
+        "UTF-8")) {
       writer.print(gson.toJson(block));
-    } catch (FileNotFoundException | UnsupportedEncodingException ignored) { }
+    } catch (FileNotFoundException | UnsupportedEncodingException ignored) {
+    }
   }
-  public void currentBlock(Block block){
-    try (PrintWriter writer = new PrintWriter("blocks/block" + block.blockNumber+".dat" , "UTF-8")){
+
+  public void currentBlock(Block block) {
+    try (PrintWriter writer = new PrintWriter("blocks/block" + block.blockNumber + ".dat",
+        "UTF-8")) {
       writer.print(gson.toJson(block));
     } catch (FileNotFoundException | UnsupportedEncodingException e) {
       e.printStackTrace();
