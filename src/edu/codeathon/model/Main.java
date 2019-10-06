@@ -3,11 +3,12 @@ package edu.codeathon.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.IOException;
 
 public class Main {
 
 
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) throws InterruptedException, IOException {
 
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 

@@ -1,9 +1,17 @@
 package edu.codeathon.utilities;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -13,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Utils {
+
 
   private static MessageDigest digest;
 
@@ -35,7 +44,7 @@ public class Utils {
     try {
       reader = new BufferedReader(new FileReader(fileName));
       reader.readLine();
-      while((line=reader.readLine()) != null) {
+      while ((line = reader.readLine()) != null) {
         List<String> temp = new ArrayList<>();
         String[] split = line.split(",");
         try {
@@ -45,12 +54,12 @@ public class Utils {
             temp.add(USER);
             parsed.add(temp);
           }
-        }catch(ArrayIndexOutOfBoundsException aiob) {
+        } catch (ArrayIndexOutOfBoundsException aiob) {
           //Ignored
         }
       }
       reader.close();
-    }catch (IOException e) {
+    } catch (IOException e) {
       //Ignored
     }
     return parsed;
@@ -62,7 +71,7 @@ public class Utils {
       SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
       Date dt = sdf.parse(text);
       long epoch = dt.getTime();
-      unixTime = (epoch/1000);
+      unixTime = (epoch / 1000);
     } catch (ParseException e) {
       return null;
     }
@@ -83,7 +92,6 @@ public class Utils {
     }
     // get the sha256 hash value of the input and store as byte array
     byte[] byteString = digest.digest();
-
 
     // output to convert the byte values into hex equivalents
     StringBuilder hexString = new StringBuilder();

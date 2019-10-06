@@ -27,31 +27,31 @@ public class Miner implements Runnable {
   public void run() {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     running = true;
-    Long nonce = new Random().nextLong()*10000000;
+    Long nonce = new Random().nextLong() * 10000000;
     Long blockTimestamp;
 
     List<List<String>> tweets = Utils.parseComment("resources\\comments");
     int i = 0;
     while (running) {
-      Comment comment = new Comment(tweets.get(i).get(1), tweets.get(i).get(2), tweets.get(i).get(0));
+      Comment comment = new Comment(tweets.get(i).get(1), tweets.get(i).get(2),
+          tweets.get(i).get(0));
       String message = comment.toString();
       String prevHash = currentChain.getMostRecentBlock().toString();
       Long blockNumber = currentChain.getCurrentNumber();
       blockTimestamp = System.currentTimeMillis();
-      String nextBlock = Utils.hash(prevHash, blockNumber+1, blockTimestamp,message,nonce);
+      String nextBlock = Utils.hash(prevHash, blockNumber + 1, blockTimestamp, message, nonce);
 
       if (nextBlock.startsWith(difficulty)) {
 
-
-        Block block = new Block(prevHash, blockNumber+1, message, blockTimestamp, nonce);
+        Block block = new Block(prevHash, blockNumber + 1, message, blockTimestamp, nonce);
         currentChain.add(block);
         System.out.println("Next Block:");
         System.out.println(gson.toJson(block));
-        nonce = new Random().nextLong()*100000;
+        nonce = new Random().nextLong() * 100000;
 
         PrintWriter writer = null;
         try {
-          writer = new PrintWriter("blocks/block" + block.blockNumber+".dat" , "UTF-8");
+          writer = new PrintWriter("blocks/block" + block.blockNumber + ".dat", "UTF-8");
         } catch (FileNotFoundException e) {
           e.printStackTrace();
         } catch (UnsupportedEncodingException e) {

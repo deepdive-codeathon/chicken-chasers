@@ -17,16 +17,16 @@ public class BlockChain {
     return chain;
   }
 
-  public void add(Block block){
+  public void add(Block block) {
     chain.add(block);
   }
 
-  public synchronized Block getMostRecentBlock(){
-    return chain.get(chain.size()-1);
+  public synchronized Block getMostRecentBlock() {
+    return chain.get(chain.size() - 1);
   }
 
   public Long getCurrentNumber() {
-    return chain.get(chain.size()-1).blockNumber;
+    return chain.get(chain.size() - 1).blockNumber;
   }
 
   public boolean isValid() {
