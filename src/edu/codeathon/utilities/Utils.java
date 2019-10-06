@@ -6,17 +6,11 @@ import edu.codeathon.model.Block;
 import edu.codeathon.model.Comment;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -54,6 +48,7 @@ public class Utils {
   public static List<List<String>> parseComment(String fileName) {
     List<List<String>> parsed = new ArrayList<>();
     BufferedReader reader;
+    //The only data we are pulling from includes tweets from donald trump so user is assumed to be @therealDonaldTrump
     final String USER = "@therealDonaldTrump";
     final int TEXT = 1; // Known value for tweet
     final int TIME = 2; // Known value for time stamp
@@ -73,12 +68,12 @@ public class Utils {
             parsed.add(temp);
           }
         } catch (ArrayIndexOutOfBoundsException aiob) {
-          //Ignored
+          //Ignored because some of the data we are pulling from is incomplete
         }
       }
       reader.close();
     } catch (IOException e) {
-      //Ignored
+      System.out.println("File not found!");
     }
     return parsed;
   }
@@ -96,7 +91,7 @@ public class Utils {
     return unixTime;
   }
 
-  public static String byteToString(byte[] byteString) {
+  private static String byteToString(byte[] byteString) {
 
     // output to convert the byte values into hex equivalents
     StringBuilder hexString = new StringBuilder();
@@ -129,7 +124,6 @@ public class Utils {
     } catch (FileNotFoundException | UnsupportedEncodingException e) {
       e.printStackTrace();
     }
-
   }
 
   public static String constructBlockMess(List<Comment> comments) {
