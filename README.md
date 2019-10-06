@@ -1,5 +1,5 @@
 # SpeechChain
-#### Description
+### Description
 We are building a decentralized, immutable, blockchain where 
 one can make a statement or a promise and place it on our immutable
 ledger. In the future, we can always look back at an individuals words
@@ -9,7 +9,7 @@ our blockchain. The hopes is that one day, people who are making promises
 will be incentives to make that promise on our decentralized immutable ledger.  
  
 
-#### Intended Users
+### Intended Users
 
 * Politicians who would like to show people that they aren't intending to break
 a promise.

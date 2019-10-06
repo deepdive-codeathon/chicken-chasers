@@ -25,7 +25,6 @@ public class MainView extends Application {
 
 
     stage.setTitle("Block Display UI");
-
     BlockChain blockChain = new BlockChain();
     Pool pool = new Pool();
 
