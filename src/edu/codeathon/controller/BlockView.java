@@ -19,7 +19,7 @@ public class BlockView extends ListView<Block> {
   static BlockView setBlockChain(ObservableList<Block> blocks){
     BlockView blockView = new BlockView();
     blockView.setItems(observableBlockList);
-
+    blockView.setPrefHeight(900);
 
       try {
         blocks.addListener((ListChangeListener<Block>) c -> {
@@ -28,7 +28,6 @@ public class BlockView extends ListView<Block> {
             Platform.runLater(()->{
               observableBlockList.addAll(c.getAddedSubList());
 
-//              blockView.scrollTo(observableBlockList.size()-1);
             });
           }
         });

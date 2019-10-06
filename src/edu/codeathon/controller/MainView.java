@@ -3,6 +3,7 @@ package edu.codeathon.controller;
 import edu.codeathon.model.Block;
 import edu.codeathon.model.BlockChain;
 import edu.codeathon.model.Miner;
+import edu.codeathon.model.Network;
 import edu.codeathon.model.Pool;
 import edu.codeathon.utilities.Utils;
 import javafx.application.Application;
@@ -20,6 +21,7 @@ public class MainView extends Application {
     launch(args);
   }
 
+
   @Override
   public void start(Stage stage) {
 
@@ -29,29 +31,38 @@ public class MainView extends Application {
     BlockChain blockChain = new BlockChain();
     Pool pool = new Pool();
 
-    pool.setCommentPool(Utils.parseComment("comments"));
+    pool.setCommentPool(Utils.parseComment("resources/comments"));
     Miner miner = new Miner(blockChain,pool);
     BlockView viewBlocks = BlockView.setBlockChain(blockChain.getChain());
     Chat chat = new Chat();
+
+    Block genesis = Block.getGenesis();
+    Utils.saveBlock(genesis, "blocks");
+    pool.addInput(chat.getMessage());
     blockChain.add(Block.getGenesis());
+    Stats stats = new Stats(blockChain.validProperty(), Network.getAverage());
+
+    new Thread(miner).start();
+
     stage.setOnCloseRequest((value)->{
       miner.stop();
     });
 
-    new Thread(miner).start();
 
-    stage.setScene(createScene(viewBlocks, chat));
 
+    stage.setScene(createScene(stats,viewBlocks, chat));
+    stage.setMaximized(true);
     stage.show();
   }
 
 
   private Scene createScene(Node...nodes){
     VBox root = new VBox();
+    root.setSpacing(20);
     root.getChildren().addAll(nodes);
 
     Scene scene = new Scene(root);
-
+    scene.getStylesheets().add("root.css");
     return scene;
 
   }

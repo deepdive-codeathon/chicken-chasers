@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.SynchronousQueue;
-import java.util.stream.Collectors;
+import javafx.beans.property.StringProperty;
 
 public class Pool {
 
-  private Queue<Comment> commentPool = new LinkedList<>();;
-  private SynchronousQueue<Comment> commentQueue = new SynchronousQueue<>();
+  private LinkedList<Comment> commentPool = new LinkedList<>();
+  private Queue<Comment> commentQueue = new LinkedList<>();
 
 
   public void setCommentPool(List<Comment> commentsFromTwitter){
@@ -19,18 +18,25 @@ public class Pool {
 
 
 
-  public synchronized List<Comment> getFromPool(int number){
-
+  public synchronized String getFromPool(int number){
+    StringBuilder sb = new StringBuilder("\n\t\t");
     while (commentQueue.size() < number){
-      commentQueue.add(commentPool.remove());
+      commentQueue.add(commentPool.removeLast());
     }
     List<Comment> returnComments = new ArrayList<>(commentQueue);
     commentQueue.clear();
-    return returnComments;
+    for (Comment comment : returnComments) {
+      sb.append(comment).append("\n");
+    }
+    return sb.toString();
   }
 
 
-
-
-
+  public void addInput(StringProperty message) {
+    message.addListener((observable, oldValue, newValue) -> {
+      commentQueue.add(new Comment(String.valueOf(System.currentTimeMillis()),
+                                  "CURRENTUSER",
+                                  newValue));
+    });
+  }
 }

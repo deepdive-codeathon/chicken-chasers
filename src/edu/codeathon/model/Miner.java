@@ -11,6 +11,7 @@ public class Miner implements Runnable {
   private BlockChain currentChain;
   private Pool pool;
 
+
   public Miner(BlockChain chain, Pool pool) {
     currentChain = chain;
     this.pool = pool;
@@ -21,11 +22,13 @@ public class Miner implements Runnable {
     running = true;
     Long nonce = new Random().nextLong() * 10000000;
     Long blockTimestamp;
-    int i = 0;
     String message;
+    int i = 0;
+    int comment_no = 1;
+    message = pool.getFromPool(comment_no);
+
 
     while (running) {
-      message = pool.getFromPool(10).toString();
       String prevHash = currentChain.getMostRecentBlock().hash;
       Long blockNumber = currentChain.getCurrentNumber();
       blockTimestamp = System.currentTimeMillis();
@@ -42,14 +45,16 @@ public class Miner implements Runnable {
         Block block = new Block(prevHash, blockNumber + 1, blockTimestamp, message, nonce);
         currentChain.add(block);
 
+        message = pool.getFromPool(comment_no);
         nonce = new Random().nextLong()*100000;
 
-//        Utils.saveBlock(block,"blocks");
+        Utils.saveBlock(block,"blocks");
         i++;
       }
       nonce++;
     }
   }
+
 
   public void stop() {
     running = false;

@@ -14,7 +14,7 @@ public class Main {
 
     BlockChain blockChain = new BlockChain();
     Block genesis = new Block("genesis",0L,System.currentTimeMillis(),"",0L);
-
+    Pool pool = new Pool();
     blockChain.add(genesis);
     Thread t = new Thread(new Miner(blockChain, pool));
     t.start();

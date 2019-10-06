@@ -31,7 +31,11 @@ public class Block {
 
   @Override
   public String toString() {
-    return Utils.gson.toJson(this);
+    return "BlockNumber=" + blockNumber +
+        "\n\tprevHash='" + prevHash + '\'' +
+        "\n\thash='" + hash + '\'' +
+        "\n\tmessage="+message +
+        "\n\tblockTimestamp=" + blockTimestamp +
+        "\n\tnonce=" + nonce;
   }
-
 }

@@ -3,6 +3,8 @@ package edu.codeathon.model;
 import edu.codeathon.utilities.Utils;
 import java.util.LinkedList;
 import java.util.List;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -11,10 +13,13 @@ public class BlockChain {
 
 
   private ObservableList<Block> chain;
+  private BooleanProperty valid;
 
   public BlockChain() {
+    valid = new SimpleBooleanProperty(false);
     chain = FXCollections.observableArrayList();
     chain.addListener((ListChangeListener<Block>)(change)->{
+      valid.set(isValid());
     });
   }
 
@@ -34,6 +39,9 @@ public class BlockChain {
     return chain.get(chain.size() - 1).blockNumber;
   }
 
+  public BooleanProperty validProperty() {
+    return valid;
+  }
 
   public boolean isValid() {
     Block currentBlock;
