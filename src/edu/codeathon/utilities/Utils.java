@@ -45,7 +45,7 @@ public class Utils {
     return byteToString(byteString);
   }
 
-  public static List<String> parseComment(String fileName) {
+  public static List<Comment> parseComment(String fileName) {
     List<Comment> parsed = new ArrayList<>();
     BufferedReader reader;
     //The only data we are pulling from includes tweets from donald trump so user is assumed to be @therealDonaldTrump
@@ -58,7 +58,6 @@ public class Utils {
       reader = new BufferedReader(new FileReader(fileName));
       reader.readLine();
       while ((line = reader.readLine()) != null) {
-        List<String> temp = new ArrayList<>();
         String[] split = line.split(",");
         try {
           if (convertToUnix(split[TIME]) != null) {
