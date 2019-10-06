@@ -13,6 +13,10 @@ public class Block {
   public Long blockTimestamp; // timestamp of block upon creation
   public Long nonce;
 
+  public static Block getGenesis() {
+    return new Block("genesis",1L,"",System.currentTimeMillis(),0L);
+  }
+
   public String calculatedHash() {
     return Utils.hash(prevHash, blockNumber, blockTimestamp, message, nonce);
   }
@@ -28,7 +32,7 @@ public class Block {
 
   @Override
   public String toString() {
-    return hash;
+    return Utils.gson.toJson(this);
   }
 
 }

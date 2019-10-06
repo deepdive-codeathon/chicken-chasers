@@ -38,7 +38,7 @@ public class Miner implements Runnable {
       Comment comment = new Comment(tweets.get(i).get(1), tweets.get(i).get(2),
           tweets.get(i).get(0));
       String message = comment.toString();
-      String prevHash = currentChain.getMostRecentBlock().toString();
+      String prevHash = currentChain.getMostRecentBlock().hash;
       Long blockNumber = currentChain.getCurrentNumber();
       blockTimestamp = System.currentTimeMillis();
       String nextBlock = Utils.hash(prevHash, blockNumber + 1, blockTimestamp, message, nonce);

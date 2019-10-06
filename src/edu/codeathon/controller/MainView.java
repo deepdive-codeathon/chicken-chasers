@@ -1,8 +1,12 @@
 package edu.codeathon.controller;
 
+import edu.codeathon.model.Block;
+import edu.codeathon.model.BlockChain;
+import edu.codeathon.model.Miner;
 import java.util.Scanner;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -25,22 +29,24 @@ public class MainView extends Application {
   }
 
   @Override
-  public void start(Stage primaryStage) {
-    primaryStage.setTitle("Block Display UI");
+  public void start(Stage stage) {
 
-    final ListView listView = new ListView(data);
+    stage.setTitle("Block Display UI");
+    BlockChain blockChain = new BlockChain();
+    Miner miner = new Miner(blockChain);
+    ViewBlocks viewBlocks = new ViewBlocks(blockChain.getChain());
+    blockChain.add(Block.getGenesis());
 
-    for (int i = 0; i < 18; i++) {
-      data.add("Block " + i);
-    }
+    new Thread(miner).start();
+//    blockChain.getChain().addListener(new ListChangeListener<Block>() {
+//      @Override
+//      public void onChanged(Change<? extends Block> c) {
+//        System.out.println(c.getList());
+//      }
+//    });
+    stage.setScene(createScene(viewBlocks));
 
-    listView.setItems(data);
-    listView.setCellFactory(ComboBoxListCell.forListView(content));
-
-    StackPane root = new StackPane();
-    root.getChildren().add(listView);
-    primaryStage.setScene(new Scene(root, 400, 350));
-    primaryStage.show();
+    stage.show();
 
 
   }

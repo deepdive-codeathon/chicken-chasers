@@ -27,7 +27,7 @@ import java.util.List;
 public class Utils {
 
   private static MessageDigest digest;
-  private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+  public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
   static {
     try {

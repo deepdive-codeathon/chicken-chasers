@@ -15,7 +15,7 @@ public class BlockChain {
     chain = FXCollections.observableArrayList();
   }
 
-  public List<Block> getChain() {
+  public ObservableList<Block> getChain() {
     return chain;
   }
 

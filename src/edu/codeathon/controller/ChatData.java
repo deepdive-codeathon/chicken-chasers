@@ -6,16 +6,15 @@ import javafx.collections.ObservableList;
 
 public class ChatData {
 
-
-  ObservableList <Comment> data;
+  private ObservableList <Comment> data;
 
   public ChatData(){
     data = FXCollections.observableArrayList();
   }
 
-
   public Comment getLastMessage(){
     return data.get(data.size()-1);
   }
+
 
 }
