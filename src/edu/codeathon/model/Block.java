@@ -7,8 +7,6 @@ import java.util.Date;
 public class Block {
 
   public Long blockNumber;
-
-
   public String hash; // hash of current block
   public String prevHash; // hash of previous block
   public String message; // (author, tweet, timestamp)
@@ -32,6 +30,5 @@ public class Block {
   public String toString() {
     return hash;
   }
-
 
 }

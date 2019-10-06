@@ -1,5 +1,6 @@
 package edu.codeathon.utilities;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.codeathon.model.Block;
 import java.io.BufferedReader;
@@ -27,6 +28,7 @@ public class Utils {
 
 
   private static MessageDigest digest;
+  private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
   static {
     try {
@@ -120,7 +122,16 @@ public class Utils {
 
   public void saveBlock(Block block){
     try( PrintWriter writer = new PrintWriter("blocks/block" + block.blockNumber+".dat" , "UTF-8")){
-      writer.print(new GsonBuilder().setPrettyPrinting().create().toJson(block));
+      writer.print(gson.toJson(block));
     } catch (FileNotFoundException | UnsupportedEncodingException ignored) { }
   }
+  public void currentBlock(Block block){
+    try (PrintWriter writer = new PrintWriter("blocks/block" + block.blockNumber+".dat" , "UTF-8")){
+      writer.print(gson.toJson(block));
+    } catch (FileNotFoundException | UnsupportedEncodingException e) {
+      e.printStackTrace();
+    }
+
+  }
+
 }

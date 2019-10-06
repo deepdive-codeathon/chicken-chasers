@@ -25,14 +25,12 @@ public class Miner implements Runnable {
 
   @Override
   public void run() {
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
     running = true;
     Long nonce = new Random().nextLong()*10000000;
     Long blockTimestamp;
 
     List<List<String>> tweets = Utils.parseComment("resources/comments");
     int i = 0;
-    PrintWriter writer;
 
     while (running) {
       Comment comment = new Comment(tweets.get(i).get(1), tweets.get(i).get(2),
@@ -47,20 +45,8 @@ public class Miner implements Runnable {
 
         Block block = new Block(prevHash, blockNumber + 1, message, blockTimestamp, nonce);
         currentChain.add(block);
-        System.out.println("Next Block:");
-        System.out.println(gson.toJson(block));
-        nonce = new Random().nextLong()*100000;
 
-        PrintWriter writer = null;
-        try {
-          writer = new PrintWriter("blocks/block" + block.blockNumber+".dat" , "UTF-8");
-        } catch (FileNotFoundException e) {
-          e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-          e.printStackTrace();
-        }
-        writer.print(gson.toJson(block));
-        writer.close();
+        nonce = new Random().nextLong()*100000;
         i++;
       }
       nonce++;
