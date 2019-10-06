@@ -35,7 +35,11 @@ public class MainView extends Application {
     Pool pool = new Pool();
 
     pool.setCommentPool(Utils.parseComment("resources/comments"));
-    pool.setCommentPool(Read.getTweets());
+    try{
+      pool.setCommentPool(Read.getTweets());
+    } catch (Exception e){
+
+    }
     Miner miner = new Miner(blockChain,pool);
     BlockView viewBlocks = BlockView.setBlockChain(blockChain.getChain());
 
