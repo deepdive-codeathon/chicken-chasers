@@ -2,11 +2,13 @@ package edu.codeathon.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sun.webkit.network.Util;
 import edu.codeathon.utilities.Utils;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Random;
 
@@ -15,7 +17,7 @@ public class Miner implements Runnable {
 
   private boolean running;
   private BlockChain currentChain;
-  private String diff;
+  private String difficulty = "0000";
 
   public Miner(BlockChain chain) {
     currentChain = chain;
@@ -33,22 +35,32 @@ public class Miner implements Runnable {
     PrintWriter writer;
 
     while (running) {
-      Comment comment = new Comment(tweets.get(i).get(1), tweets.get(i).get(2), tweets.get(i).get(0));
+      Comment comment = new Comment(tweets.get(i).get(1), tweets.get(i).get(2),
+          tweets.get(i).get(0));
       String message = comment.toString();
       String prevHash = currentChain.getMostRecentBlock().toString();
       Long blockNumber = currentChain.getCurrentNumber();
       blockTimestamp = System.currentTimeMillis();
-      String nextBlock = Utils.hash(prevHash, blockNumber+1, blockTimestamp,message,nonce);
+      String nextBlock = Utils.hash(prevHash, blockNumber + 1, blockTimestamp, message, nonce);
 
-      diff = Network.getDifficulty(currentChain);
+      if (nextBlock.startsWith(difficulty)) {
 
-      if (nextBlock.startsWith(diff)) {
         Block block = new Block(prevHash, blockNumber + 1, message, blockTimestamp, nonce);
         currentChain.add(block);
-        System.out.println("Next Block: " + 1/Math.pow(16, diff.length()));
-        System.out.println(block.hash);
+        System.out.println("Next Block:");
+        System.out.println(gson.toJson(block));
+        nonce = new Random().nextLong()*100000;
 
-        nonce = new Random().nextLong() * 100000;
+        PrintWriter writer = null;
+        try {
+          writer = new PrintWriter("blocks/block" + block.blockNumber+".dat" , "UTF-8");
+        } catch (FileNotFoundException e) {
+          e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+          e.printStackTrace();
+        }
+        writer.print(gson.toJson(block));
+        writer.close();
         i++;
       }
       nonce++;

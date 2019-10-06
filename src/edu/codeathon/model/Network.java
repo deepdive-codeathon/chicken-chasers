@@ -1,7 +1,5 @@
 package edu.codeathon.model;
 
-import java.util.stream.Collectors;
-
 public class Network {
 
   private static final int CHECK_N_BLOCKS = 100;
