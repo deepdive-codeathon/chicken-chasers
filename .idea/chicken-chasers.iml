@@ -11,7 +11,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.twitter4j:twitter4j-core:[4.0,)" level="application" />
     <orderEntry type="library" scope="TEST" name="JUnit5" level="application" />
-    <orderEntry type="library" name="gson" level="application" />
-    <orderEntry type="library" name="JFX-11" level="application" />
+    <orderEntry type="library" name="jfx" level="application" />
+    <orderEntry type="library" name="com.google.code.gson:gson:2.8.6" level="application" />
   </component>
 </module>

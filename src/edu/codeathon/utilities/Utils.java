@@ -3,6 +3,7 @@ package edu.codeathon.utilities;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.codeathon.model.Block;
+import edu.codeathon.model.Comment;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.BufferedWriter;
@@ -131,4 +132,11 @@ public class Utils {
 
   }
 
+  public static String constructBlockMess(List<Comment> comments) {
+    StringBuilder sb = new StringBuilder();
+    for (Comment comment : comments) {
+      sb.append(comment);
+    }
+    return sb.toString();
+  }
 }
