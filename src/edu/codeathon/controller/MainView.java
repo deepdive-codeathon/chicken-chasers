@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javax.swing.JFrame;
 
 public class MainView extends Application {
 
@@ -22,7 +23,9 @@ public class MainView extends Application {
 
   @Override
   public void start(Stage stage) {
-
+    JFrame frame = new JFrame("Display");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(500,300);
 
     stage.setTitle("Block Display UI");
     BlockChain blockChain = new BlockChain();
