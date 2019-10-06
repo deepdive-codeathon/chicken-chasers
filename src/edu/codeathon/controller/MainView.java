@@ -5,6 +5,7 @@ import edu.codeathon.model.BlockChain;
 import edu.codeathon.model.Miner;
 import edu.codeathon.model.Network;
 import edu.codeathon.model.Pool;
+import edu.codeathon.twitterreader.Read;
 import edu.codeathon.utilities.Utils;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -34,14 +35,21 @@ public class MainView extends Application {
     Pool pool = new Pool();
 
     pool.setCommentPool(Utils.parseComment("resources/comments"));
+    pool.setCommentPool(Read.getTweets());
     Miner miner = new Miner(blockChain,pool);
     BlockView viewBlocks = BlockView.setBlockChain(blockChain.getChain());
+
     Chat chat = new Chat();
 
     Block genesis = Block.getGenesis();
+
     Utils.saveBlock(genesis, "blocks");
+
     pool.addInput(chat.getMessage());
+
+
     blockChain.add(Block.getGenesis());
+
     Stats stats = new Stats(blockChain.validProperty(), Network.getAverage());
 
     new Thread(miner).start();
