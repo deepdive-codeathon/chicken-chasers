@@ -45,9 +45,9 @@ public class Miner implements Runnable {
         comment.setTimestamp(tweets.get(i).get(1));
         comment.setContent(tweets.get(i).get(0));
       }*/
+      //Utils.constructBlockMess(comments);
       Comment comment = new Comment(tweets.get(i).get(1), tweets.get(i).get(2), tweets.get(i).get(0));
       String message = comment.toString();
-      //Utils.constructBlockMess(comments);
       String prevHash = currentChain.getMostRecentBlock().hash;
       Long blockNumber = currentChain.getCurrentNumber();
       blockTimestamp = System.currentTimeMillis();
@@ -64,13 +64,16 @@ public class Miner implements Runnable {
         Block block = new Block(prevHash, blockNumber + 1, blockTimestamp, message, nonce);
         currentChain.add(block);
 
-//        System.out.println(block.toString());
         nonce = new Random().nextLong()*100000;
 
-        Utils.saveBlock(block,"blocks");
+//        Utils.saveBlock(block,"blocks");
         i++;
       }
       nonce++;
     }
+  }
+
+  public void stop() {
+    running = false;
   }
 }

@@ -15,8 +15,6 @@ public class BlockChain {
   public BlockChain() {
     chain = FXCollections.observableArrayList();
     chain.addListener((ListChangeListener<Block>)(change)->{
-      System.out.println(change.getList().get(getChain().size() - 1).blockNumber);
-      System.out.println(isValid());
     });
   }
 

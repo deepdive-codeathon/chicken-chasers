@@ -12,8 +12,8 @@ public class Chat extends HBox {
 
   public Chat() {
     textBox = new TextArea();
-    enterButton = new Button();
-    
+    enterButton = new Button("Send");
+    textBox.setMaxHeight(40D);
     getChildren().add(textBox);
     getChildren().add(enterButton);
   }
