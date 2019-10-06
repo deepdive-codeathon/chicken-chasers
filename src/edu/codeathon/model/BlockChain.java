@@ -3,14 +3,16 @@ package edu.codeathon.model;
 import edu.codeathon.utilities.Utils;
 import java.util.LinkedList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class BlockChain {
 
 
-  private List<Block> chain;
+  private ObservableList<Block> chain;
 
   public BlockChain() {
-    chain = new LinkedList<>();
+    chain = FXCollections.observableArrayList();
   }
 
   public List<Block> getChain() {
@@ -21,13 +23,14 @@ public class BlockChain {
     chain.add(block);
   }
 
-  public synchronized Block getMostRecentBlock() {
+  public Block getMostRecentBlock() {
     return chain.get(chain.size() - 1);
   }
 
   public Long getCurrentNumber() {
     return chain.get(chain.size() - 1).blockNumber;
   }
+
 
   public boolean isValid() {
     Block currentBlock;
@@ -52,6 +55,7 @@ public class BlockChain {
     }
     return true;
   }
+
 
   public int size() {
     return chain.size();

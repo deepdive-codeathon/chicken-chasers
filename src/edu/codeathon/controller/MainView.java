@@ -1,12 +1,16 @@
 package edu.codeathon.controller;
 
+import java.util.Scanner;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxListCell;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MainView extends Application {
@@ -25,14 +29,6 @@ public class MainView extends Application {
     primaryStage.setTitle("Block Display UI");
 
     final ListView listView = new ListView(data);
-    listView.setPrefSize(500, 350);
-    listView.setEditable(true);
-
-    content.addAll(
-        "Hash: 0008c087247aa2f07ee1c5956b8e1a9f4c7f892a70e324f1bb3d161e05ca107b", "John McAfee",
-        " ", "       I will eat my d if Bitcoin isn't $1,000,000 by 2020.", " ",
-        "                                                                                29 November 2017"
-    );
 
     for (int i = 0; i < 18; i++) {
       data.add("Block " + i);
@@ -45,5 +41,19 @@ public class MainView extends Application {
     root.getChildren().add(listView);
     primaryStage.setScene(new Scene(root, 400, 350));
     primaryStage.show();
+
+
   }
+
+
+  private Scene createScene(Node...nodes){
+    VBox root = new VBox();
+    root.getChildren().addAll(nodes);
+
+    Scene scene = new Scene(root);
+
+    return scene;
+
+  }
+
 }
