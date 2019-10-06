@@ -14,14 +14,14 @@ public class Block {
   public Long nonce;
 
   public static Block getGenesis() {
-    return new Block("genesis",1L,System.currentTimeMillis(),"",0L);
+    return new Block("genesis", 1L, System.currentTimeMillis(), "", 0L);
   }
 
   public String calculatedHash() {
     return Utils.hash(prevHash, blockNumber, blockTimestamp, message, nonce);
   }
 
-  public Block(String prevHash, Long blockNumber, Long blockTimestamp,String message, Long nonce) {
+  public Block(String prevHash, Long blockNumber, Long blockTimestamp, String message, Long nonce) {
     this.prevHash = prevHash;
     this.blockNumber = blockNumber;
     this.message = message;
