@@ -45,8 +45,8 @@ public class Utils {
     return byteToString(byteString);
   }
 
-  public static List<List<String>> parseComment(String fileName) {
-    List<List<String>> parsed = new ArrayList<>();
+  public static List<String> parseComment(String fileName) {
+    List<Comment> parsed = new ArrayList<>();
     BufferedReader reader;
     //The only data we are pulling from includes tweets from donald trump so user is assumed to be @therealDonaldTrump
     final String USER = "@therealDonaldTrump";
@@ -62,10 +62,8 @@ public class Utils {
         String[] split = line.split(",");
         try {
           if (convertToUnix(split[TIME]) != null) {
-            temp.add(split[TEXT]);
-            temp.add(convertToUnix(split[TIME]).toString());
-            temp.add(USER);
-            parsed.add(temp);
+            Comment comment = new Comment(convertToUnix(split[TIME]).toString(), USER, split[TEXT].toString());
+            parsed.add(comment);
           }
         } catch (ArrayIndexOutOfBoundsException aiob) {
           //Ignored because some of the data we are pulling from is incomplete
