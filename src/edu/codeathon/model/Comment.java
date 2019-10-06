@@ -20,6 +20,18 @@ public class Comment {
     return timestamp + ":" + author + ":" + content;
   }
 
+  public void setAuthor(String author) {
+    this.author = author;
+  }
+
+  public void setTimestamp(String timestamp) {
+    this.timestamp = timestamp;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
+  }
+
 }
 
 
