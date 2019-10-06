@@ -27,10 +27,10 @@ public class MainView extends Application {
     stage.setTitle("Block Display UI");
 
     BlockChain blockChain = new BlockChain();
-    Miner miner = new Miner(blockChain);
     Pool pool = new Pool();
 
     pool.setCommentPool(Utils.parseComment("comments"));
+    Miner miner = new Miner(blockChain,pool);
     BlockView viewBlocks = BlockView.setBlockChain(blockChain.getChain());
     Chat chat = new Chat();
     blockChain.add(Block.getGenesis());

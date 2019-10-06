@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.SynchronousQueue;
 import java.util.stream.Collectors;
 
 public class Pool {
 
   private Queue<Comment> commentPool = new LinkedList<>();;
-  private Queue<Comment> commentQueue = new LinkedList<>();
+  private SynchronousQueue<Comment> commentQueue = new SynchronousQueue<>();
 
 
   public void setCommentPool(List<Comment> commentsFromTwitter){
@@ -24,9 +25,11 @@ public class Pool {
       commentQueue.add(commentPool.remove());
     }
     List<Comment> returnComments = new ArrayList<>(commentQueue);
-    commentQueue.removeAll(returnComments);
+    commentQueue.clear();
     return returnComments;
   }
+
+
 
 
 

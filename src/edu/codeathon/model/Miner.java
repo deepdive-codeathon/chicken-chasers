@@ -9,9 +9,11 @@ public class Miner implements Runnable {
 
   private boolean running;
   private BlockChain currentChain;
+  private Pool pool;
 
-  public Miner(BlockChain chain) {
+  public Miner(BlockChain chain, Pool pool) {
     currentChain = chain;
+    this.pool = pool;
   }
 
   @Override

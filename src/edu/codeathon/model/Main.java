@@ -16,7 +16,7 @@ public class Main {
     Block genesis = new Block("genesis",0L,System.currentTimeMillis(),"",0L);
 
     blockChain.add(genesis);
-    Thread t = new Thread(new Miner(blockChain));
+    Thread t = new Thread(new Miner(blockChain, pool));
     t.start();
     t.join();
     System.out.println(gson.toJson(blockChain));
