@@ -1,8 +1,13 @@
 package edu.codeathon.utilities;
 
+import com.google.gson.GsonBuilder;
+import edu.codeathon.model.Block;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -84,6 +89,10 @@ public class Utils {
     // get the sha256 hash value of the input and store as byte array
     byte[] byteString = digest.digest();
 
+    return byteToString(byteString);
+  }
+
+    public static String byteToString(byte[] byteString){
 
     // output to convert the byte values into hex equivalents
     StringBuilder hexString = new StringBuilder();
@@ -101,4 +110,10 @@ public class Utils {
     return hexString.toString();
   }
 
+
+  public void saveBlock(Block block){
+    try( PrintWriter writer = new PrintWriter("blocks/block" + block.blockNumber+".dat" , "UTF-8")){
+      writer.print(new GsonBuilder().setPrettyPrinting().create().toJson(block));
+    } catch (FileNotFoundException | UnsupportedEncodingException ignored) { }
+  }
 }

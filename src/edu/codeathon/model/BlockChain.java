@@ -28,4 +28,8 @@ public class BlockChain {
   public Long getCurrentNumber() {
     return chain.get(chain.size()-1).blockNumber;
   }
+
+  public int size() {
+    return chain.size();
+  }
 }

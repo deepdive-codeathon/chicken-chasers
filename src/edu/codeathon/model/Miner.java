@@ -2,6 +2,7 @@ package edu.codeathon.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sun.webkit.network.Util;
 import edu.codeathon.utilities.Utils;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -14,7 +15,7 @@ public class Miner implements Runnable {
 
   private boolean running;
   private BlockChain currentChain;
-  private String difficulty = "0000";
+  private String diff;
 
   public Miner(BlockChain chain) {
     currentChain = chain;
@@ -27,8 +28,10 @@ public class Miner implements Runnable {
     Long nonce = new Random().nextLong()*10000000;
     Long blockTimestamp;
 
-    List<List<String>> tweets = Utils.parseComment("resources\\comments");
+    List<List<String>> tweets = Utils.parseComment("resources/comments");
     int i = 0;
+    PrintWriter writer;
+
     while (running) {
       Comment comment = new Comment(tweets.get(i).get(1), tweets.get(i).get(2), tweets.get(i).get(0));
       String message = comment.toString();
@@ -37,25 +40,15 @@ public class Miner implements Runnable {
       blockTimestamp = System.currentTimeMillis();
       String nextBlock = Utils.hash(prevHash, blockNumber+1, blockTimestamp,message,nonce);
 
-      if (nextBlock.startsWith(difficulty)) {
+      diff = Network.getDifficulty(currentChain);
 
-
-        Block block = new Block(prevHash, blockNumber+1, message, blockTimestamp, nonce);
+      if (nextBlock.startsWith(diff)) {
+        Block block = new Block(prevHash, blockNumber + 1, message, blockTimestamp, nonce);
         currentChain.add(block);
-        System.out.println("Next Block:");
-        System.out.println(gson.toJson(block));
-        nonce = new Random().nextLong()*100000;
+        System.out.println("Next Block: " + 1/Math.pow(16, diff.length()));
+        System.out.println(block.hash);
 
-        PrintWriter writer = null;
-        try {
-          writer = new PrintWriter("blocks/block" + block.blockNumber+".dat" , "UTF-8");
-        } catch (FileNotFoundException e) {
-          e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-          e.printStackTrace();
-        }
-        writer.print(gson.toJson(block));
-        writer.close();
+        nonce = new Random().nextLong() * 100000;
         i++;
       }
       nonce++;

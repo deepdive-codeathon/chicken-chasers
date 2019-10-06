@@ -18,7 +18,7 @@ public class Main {
     Thread t = new Thread(new Miner(blockChain));
     t.start();
     t.join();
-    System.out.println(gson.toJson(blockChain));
+//    System.out.println(gson.toJson(blockChain));
   }
 
 }
