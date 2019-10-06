@@ -22,6 +22,6 @@ whether or not they stayed true to their word.
 * As a written agreement between any two parties looking to do business.
 
 
-[Entity Relationship Diagram](docs/erd.md)
+[Object Diagram](docs/twitter_blockchain.png)
 
 
