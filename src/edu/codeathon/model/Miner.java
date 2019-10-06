@@ -9,9 +9,11 @@ public class Miner implements Runnable {
 
   private boolean running;
   private BlockChain currentChain;
+  private Pool pool;
 
-  public Miner(BlockChain chain) {
+  public Miner(BlockChain chain, Pool pool) {
     currentChain = chain;
+    this.pool = pool;
   }
 
   @Override
@@ -40,13 +42,16 @@ public class Miner implements Runnable {
         Block block = new Block(prevHash, blockNumber + 1, blockTimestamp, message, nonce);
         currentChain.add(block);
 
-//        System.out.println(block.toString());
         nonce = new Random().nextLong()*100000;
 
-        Utils.saveBlock(block,"blocks");
+//        Utils.saveBlock(block,"blocks");
         i++;
       }
       nonce++;
     }
+  }
+
+  public void stop() {
+    running = false;
   }
 }

@@ -1,2 +1,10 @@
 # Default ignored files
 /workspace.xml
+
+out
+.idea
+chicken-chasers.iml
+*.iml
+blocks
+/.idea/
+twitter4j.properties
