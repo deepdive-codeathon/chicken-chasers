@@ -1,12 +1,20 @@
 package edu.codeathon.controller;
 
+import edu.codeathon.model.Block;
+import edu.codeathon.model.BlockChain;
+import edu.codeathon.model.Miner;
+import java.util.Scanner;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxListCell;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MainView extends Application {
@@ -21,29 +29,37 @@ public class MainView extends Application {
   }
 
   @Override
-  public void start(Stage primaryStage) {
-    primaryStage.setTitle("Block Display UI");
+  public void start(Stage stage) {
 
-    final ListView listView = new ListView(data);
-    listView.setPrefSize(500, 350);
-    listView.setEditable(true);
+    stage.setTitle("Block Display UI");
+    BlockChain blockChain = new BlockChain();
+    Miner miner = new Miner(blockChain);
+    ViewBlocks viewBlocks = new ViewBlocks(blockChain.getChain());
+    blockChain.add(Block.getGenesis());
 
-    content.addAll(
-        "Hash: 0008c087247aa2f07ee1c5956b8e1a9f4c7f892a70e324f1bb3d161e05ca107b", "John McAfee",
-        " ", "       I will eat my d if Bitcoin isn't $1,000,000 by 2020.", " ",
-        "                                                                                29 November 2017"
-    );
+    new Thread(miner).start();
+//    blockChain.getChain().addListener(new ListChangeListener<Block>() {
+//      @Override
+//      public void onChanged(Change<? extends Block> c) {
+//        System.out.println(c.getList());
+//      }
+//    });
+    stage.setScene(createScene(viewBlocks));
 
-    for (int i = 0; i < 18; i++) {
-      data.add("Block " + i);
-    }
+    stage.show();
 
-    listView.setItems(data);
-    listView.setCellFactory(ComboBoxListCell.forListView(content));
 
-    StackPane root = new StackPane();
-    root.getChildren().add(listView);
-    primaryStage.setScene(new Scene(root, 400, 350));
-    primaryStage.show();
   }
+
+
+  private Scene createScene(Node...nodes){
+    VBox root = new VBox();
+    root.getChildren().addAll(nodes);
+
+    Scene scene = new Scene(root);
+
+    return scene;
+
+  }
+
 }
