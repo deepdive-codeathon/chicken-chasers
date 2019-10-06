@@ -11,13 +11,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Random;
+import javafx.application.Platform;
+import javax.rmi.CORBA.Util;
 
 public class Miner implements Runnable {
 
 
   private boolean running;
   private BlockChain currentChain;
-  private String difficulty = "0000";
 
   public Miner(BlockChain chain) {
     currentChain = chain;
@@ -27,7 +28,7 @@ public class Miner implements Runnable {
   public void run() {
 
     running = true;
-    Long nonce = new Random().nextLong()*10000000;
+    Long nonce = new Random().nextLong() * 10000000;
     Long blockTimestamp;
 
     List<List<String>> tweets = Utils.parseComment("resources/comments");
@@ -43,9 +44,11 @@ public class Miner implements Runnable {
       blockTimestamp = System.currentTimeMillis();
       String nextBlock = Utils.hash(prevHash, blockNumber + 1, blockTimestamp, message, nonce);
 
-      if (nextBlock.startsWith(difficulty)) {
-        Block block = new Block(prevHash, blockNumber + 1, message, blockTimestamp, nonce);
+      if (nextBlock.startsWith(Network.getDifficulty(currentChain))) {
+        Block block = new Block(prevHash, blockNumber + 1, blockTimestamp, message, nonce);
         currentChain.add(block);
+        Platform.runLater();
+        Utils.saveBlock(block,"blocks");
         nonce = new Random().nextLong()*10000;
         i++;
       }

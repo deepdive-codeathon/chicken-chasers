@@ -4,6 +4,7 @@ import edu.codeathon.utilities.Utils;
 import java.util.LinkedList;
 import java.util.List;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 public class BlockChain {
@@ -13,6 +14,10 @@ public class BlockChain {
 
   public BlockChain() {
     chain = FXCollections.observableArrayList();
+    chain.addListener((ListChangeListener<Block>)(change)->{
+      System.out.println(change.getList().get(getChain().size() - 1).blockNumber);
+      System.out.println(isValid());
+    });
   }
 
   public ObservableList<Block> getChain() {
@@ -23,11 +28,11 @@ public class BlockChain {
     chain.add(block);
   }
 
-  public Block getMostRecentBlock() {
+  public synchronized Block getMostRecentBlock() {
     return chain.get(chain.size() - 1);
   }
 
-  public Long getCurrentNumber() {
+  public synchronized Long getCurrentNumber() {
     return chain.get(chain.size() - 1).blockNumber;
   }
 

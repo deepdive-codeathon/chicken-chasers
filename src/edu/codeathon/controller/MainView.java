@@ -31,24 +31,18 @@ public class MainView extends Application {
   @Override
   public void start(Stage stage) {
 
+
     stage.setTitle("Block Display UI");
+
     BlockChain blockChain = new BlockChain();
     Miner miner = new Miner(blockChain);
     ViewBlocks viewBlocks = new ViewBlocks(blockChain.getChain());
     blockChain.add(Block.getGenesis());
-
     new Thread(miner).start();
-//    blockChain.getChain().addListener(new ListChangeListener<Block>() {
-//      @Override
-//      public void onChanged(Change<? extends Block> c) {
-//        System.out.println(c.getList());
-//      }
-//    });
+
     stage.setScene(createScene(viewBlocks));
 
     stage.show();
-
-
   }
 
 

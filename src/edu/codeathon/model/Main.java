@@ -13,7 +13,7 @@ public class Main {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     BlockChain blockChain = new BlockChain();
-    Block genesis = new Block("genesis",0L,"", System.currentTimeMillis(),0L);
+    Block genesis = new Block("genesis",0L,System.currentTimeMillis(),"",0L);
 
     blockChain.add(genesis);
     Thread t = new Thread(new Miner(blockChain));

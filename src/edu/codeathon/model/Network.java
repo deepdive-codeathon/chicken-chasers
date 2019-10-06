@@ -8,7 +8,7 @@ public class Network {
   private static final int CHECK_N_BLOCKS = 100;
   private static final Long target = 2000L;
   public static DoubleProperty average = new SimpleDoubleProperty();
-  private static final StringBuilder difficulty = new StringBuilder("000000");
+  private static final StringBuilder difficulty = new StringBuilder("00");
 
   public static String getDifficulty(BlockChain blockChain) {
 

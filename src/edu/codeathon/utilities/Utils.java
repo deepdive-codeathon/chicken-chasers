@@ -36,7 +36,7 @@ public class Utils {
     }
   }
 
-  public static String hash(Object... toHash) {
+  public synchronized static String hash(Object... toHash) {
 
     // reset the hash digest between multiple hashes
     digest.reset();
@@ -113,8 +113,8 @@ public class Utils {
     return hexString.toString();
   }
 
-  public void saveBlock(Block block) {
-    try (PrintWriter writer = new PrintWriter("blocks/block" + block.blockNumber + ".dat",
+  public static void saveBlock(Block block,String path) {
+    try (PrintWriter writer = new PrintWriter(path+"/block" + block.blockNumber + ".dat",
         "UTF-8")) {
       writer.print(gson.toJson(block));
     } catch (FileNotFoundException | UnsupportedEncodingException ignored) {
